@@ -14,12 +14,12 @@ app.set('view engine','ejs');
 app.use(express.static("public"));
 
 app.get('/',(req,res)=>{
-    console.log(req.body)
     month.getMonth().then((data) => {
         if(data){
             res.render("home",{
                 month : Object.keys(data)[0],
-                days : data[Object.keys(data)[0]]
+                days : data[Object.keys(data)[0]],
+                year:data["year"]
             })
         }
     });

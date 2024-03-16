@@ -4,12 +4,6 @@
     width: 40px;
     height: 40px;
 }
-.navbar{
-    height: 10vh;
-}
-.bg{
-    background-color:#176B87;
-}
 
 .profile{
     background-image: url("img/search-button-svgrepo-com.svg");
@@ -70,9 +64,13 @@ body{
 .up{
     background-image: url("./img/up-arrow-svgrepo-com.svg");
     background-color: #B4D4FF;
+    background-repeat: no-repeat;
     width: 30px;
     height: 30px;
     background-size: cover;
+    margin: 4px;
+    border: solid transparent;
+    border-radius: 10px;
 }
 
 .down{
@@ -81,6 +79,10 @@ body{
     width: 30px;
     height: 30px;
     background-size: cover;
+    background-repeat: no-repeat;
+    margin: 4px;
+    border: solid transparent;
+    border-radius: 10px;
 }
 
 .form1{
@@ -95,4 +97,13 @@ body{
 .month{
     margin: auto;
     text-align: center;
+}
+.nav-item{
+    margin: 4px;
+    border: solid transparent;
+}
+.nav-item:hover,.up:hover,.down:hover{
+    margin: 4px;
+    border: solid black;
+    border-radius: 10px;
 }
