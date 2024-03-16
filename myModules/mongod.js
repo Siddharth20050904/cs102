@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const dotenv = require("dotenv");
+dotenv.config();
 
 main();
 
@@ -11,7 +13,7 @@ const eventSchema = mongoose.Schema({
 })
 
 async function main() {
-  await mongoose.connect('mongodb+srv://siddharth:cs102db@cluster0.vnuefms.mongodb.net/eventDB?retryWrites=true&w=majority&appName=Cluster0');
+  await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.vnuefms.mongodb.net/eventDB?retryWrites=true&w=majority&appName=Cluster0`);
 }
 
 const Event = mongoose.model('Event',eventSchema);

@@ -3,7 +3,6 @@ const month = require("./myModules/getMonth");
 const bodyParser = require("body-parser");
 const Event = require("./myModules/mongod");
 
-
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,6 +34,14 @@ app.get('/',(req,res)=>{
             })
         }
     });
+})
+
+app.get('/db',(req,res)=>{
+    Event.find()
+    .then((event)=>{
+        console.log(event);
+    })
+    .catch((err)=>{console.log(err)})
 })
 
 app.listen(3000);
