@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Input Form</title>
+<link rel="stylesheet" href="page3.css">
+</head>
+<body>
+<div class="form-container">
+    <h2>Event Input Form</h2>
+    <form action="" method="post">
+        <label for="event-type">Event Type:</label>
+        <select id="eventType" name="eventType">
+            <option value="exam">Exam</option>
+            <option value="other">Other</option>
+        </select>
+        <label for="event-date">Event Date:</label>
+        <input type="date" id="event-date" name="eventDate" required>
+        <label for="event-title">Event Title:</label>
+        <input type="text" id="event-title" name="eventTitle" required>
+        <label for="event-description">Event Description:</label>
+        <textarea id="event-description" name="eventDescription" rows="4" required></textarea>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>

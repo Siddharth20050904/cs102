@@ -5,11 +5,12 @@ dotenv.config();
 main();
 
 const eventSchema = mongoose.Schema({
-    date: Number,
-    month: Number,
-    year:Number,
-    event: String,
-    eventType: String
+  eventType: String,
+  year:Number,
+  month:Number,
+  date:Number,
+  eventTitle: String,
+  eventDescription: String
 })
 
 async function main() {

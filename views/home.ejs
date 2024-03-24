@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg" style="background-color: #176B87;">
+  <nav class="navbar navbar-expand-lg" style="background-color: #49A078;">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,19 +31,19 @@
   </nav>
     <div class="content">
       <div class="calendar">
-        <div class="month"><%= month %> <%= year %></div>
+        <div class="month"><h3><%= currentMonth %> <%= currentYear %></h3></div>
         <div class="days">
-            <div class="day">Sun</div>
-            <div class="day">Mon</div>
-            <div class="day">Tue</div>
-            <div class="day">Wed</div>
-            <div class="day">Thu</div>
-            <div class="day">Fri</div>
-            <div class="day">Sat</div>
-            <% days.forEach((week)=>{ %>
+            <div class="day"><h4>Sun</h4></div>
+            <div class="day"><h4>Mon</h4></div>
+            <div class="day"><h4>Tue</h4></div>
+            <div class="day"><h4>Wed</h4></div>
+            <div class="day"><h4>Thu</h4></div>
+            <div class="day"><h4>Fri</h4></div>
+            <div class="day"><h4>Sat</h4></div>
+            <% currentDays.forEach((week)=>{ %>
             <%   week.forEach((day)=>{ %>
             <%    if(day!=0){ %>
-                  <div class="day"><%=day%></div>
+                  <a href="/<%=currentYear%>-<%= monthNo %>-<%= day %>"><div class="day <%=currentYear%>-<%= monthNo %>-<%= day %>"><h5 class="title-<%=currentYear%>-<%= monthNo %>-<%= day %>"><%=day%></h5></div></a>
             <%      }else{ %>
                   <div class="day"></div>
                   <%} %>
@@ -56,11 +56,23 @@
       <div class="form1">
         <form method="post">
           <button type="submit" name="button" class="up" value="up"></button>
-          <div><label class="month"><%=month%></label></div>         
+          <div><label class="month" style="color:black"><%=currentMonth%></label></div>         
           <button type="submit" name="button" class="down" value="down"></button>
         </form>
       </div>
     </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script>
+    const events = JSON.parse('<%- events %>');
+    console.log(events)
+    events.forEach(event => {
+      document.getElementsByClassName(`title-${event.year}-${event.month}-${event.date}`)[0].innerHTML = `${event.date} ${event.eventTitle}`;  
+      if(event.eventType=="exam"){
+        document.getElementsByClassName(`${event.year}-${event.month}-${event.date}`)[0].style.backgroundColor = "red";
+      }else{
+        document.getElementsByClassName(`${event.year}-${event.month}-${event.date}`)[0].style.backgroundColor = "gold";
+      }
+    });
+  </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>

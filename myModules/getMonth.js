@@ -4,7 +4,7 @@ const month = ["January","February","March","April","May","June","July","August"
 const d = new Date();
 var year = d.getFullYear();
 
-function getMonth(no) {
+function getmonthFunc(no) {
     return new Promise((resolve, reject) => {
         if(no=="up"){
             n=n-1;
@@ -34,4 +34,4 @@ function getMonth(no) {
     });
 }
 
-module.exports = { getMonth };
+module.exports = { getmonthFunc };
