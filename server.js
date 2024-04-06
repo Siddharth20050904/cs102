@@ -125,7 +125,8 @@ app.post('/signup', async (req, res) => {
                         name: req.body.name,
                         password: hashedPassword,
                         rollno: req.body.rollno,
-                        email: req.body.email
+                        email: req.body.email,
+                        Branch : req.body.branch
                     }
                     const result = await LogInCollection.create(data);
                     req.login(result,(err)=>{
