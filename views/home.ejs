@@ -43,7 +43,7 @@
             <% currentDays.forEach((week)=>{ %>
             <%   week.forEach((day)=>{ %>
             <%    if(day!=0){ %>
-                  <a href="/<%=currentYear%>-<%= monthNo %>-<%= day %>"><div class="day <%=currentYear%>-<%= monthNo %>-<%= day %>"><h5 class="title-<%=currentYear%>-<%= monthNo %>-<%= day %>"><%=day%></h5></div></a>
+                  <a href="/<%=currentYear%>-<%= monthNo %>-<%= day %>"><div class="day <%=currentYear%>-<%= monthNo %>-<%= day %> text-truncate"><h5 class="title-<%=currentYear%>-<%= monthNo %>-<%= day %>"><%=day%></h5></div></a>
             <%      }else{ %>
                   <div class="day"></div>
                   <%} %>

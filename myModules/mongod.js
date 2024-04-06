@@ -11,12 +11,37 @@ const eventSchema = mongoose.Schema({
   date:Number,
   eventTitle: String,
   eventDescription: String
-})
+});
+
+const logInSchema= mongoose.Schema({
+  name:{
+      type:String,
+      required:true
+  },
+  password:{
+      type:String,
+      required:true
+  },
+  rollno:{
+      type:Number,
+      required:false
+  },
+  Branch:{
+      type:String,
+      required:false
+  },
+  email:{
+      type:String,
+      required:true
+  }
+});
 
 async function main() {
-  await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.vnuefms.mongodb.net/eventDB?retryWrites=true&w=majority&appName=Cluster0`);
+  await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.vnuefms.mongodb.net/calendarDB?retryWrites=true&w=majority&appName=Cluster0`);
 }
 
 const Event = mongoose.model('Event',eventSchema);
 
-module.exports = Event;
+const LogInCollection = mongoose.model('User',logInSchema);
+
+module.exports = { LogInCollection, Event };
