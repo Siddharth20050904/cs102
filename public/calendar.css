@@ -43,7 +43,9 @@
 }
 
 body{
-    background-color: #9cc5a1;
+    
+    background-image: url("./img/background.png");
+
 }
 
 .day:hover{
