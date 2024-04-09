@@ -54,6 +54,7 @@
 
     .edit-profile.active {
         display: block;
+        text-align: center;
     }
 
     .logout-btn {
@@ -91,6 +92,20 @@
     .edit-btn:hover {
         background-color: #0056b3;
     }
+    .edit-save-btn{
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+        background-color: grey;
+        padding: 5px;
+        border-radius: 10px;
+        width: 100px;
+        border: none;
+        font-weight: bold;
+    }
+    .edit-save-btn:hover{
+        background-color: #49A078;
+    }
 </style>
 </head>
 <body>
@@ -98,25 +113,31 @@
         <h1>User Profile</h1>
         <div class="profile-info">
             <label>Name:</label>
-            <span id="name">John Doe</span>
+            <span id="name"><%=user.name%></span>
             <label>Roll Number:</label>
-            <span id="roll">123456</span>
+            <span id="roll"><%=user.rollno%></span>
             <label>Email:</label>
-            <span id="email">john.doe@example.com</span>
+            <span id="email"><%=user.email%></span>
             <label>Branch:</label>
-            <span id="branch">Computer Science</span>
+            <span id="branch"><%=user.Branch%></span>
         </div>
-        <div class="edit-profile" id="edit-profile">
-            <form>
+        <div class="edit-profile profile-info" id="edit-profile">
+            <form method="post">
                 <label for="edit-name">Name:</label>
-                <input type="text" id="edit-name" name="edit-name" required>
+                <input type="text" id="edit-name" name="edit_name" required>
                 <label for="edit-roll">Roll Number:</label>
-                <input type="text" id="edit-roll" name="edit-roll" required>
+                <input type="text" id="edit-roll" name="edit_roll" required>
                 <label for="edit-email">Email:</label>
-                <input type="email" id="edit-email" name="edit-email" required>
+                <input type="email" id="edit-email" name="edit_email" required>
                 <label for="edit-branch">Branch:</label>
-                <input type="text" id="edit-branch" name="edit-branch" required>
-                <input type="submit" value="Save">
+                <select name="branch" required>
+                    <option value="" disabled selected>Select Branch</option>
+                    <option value="CSE">Computer Science</option>
+                    <option value="EE">Electrical</option>
+                    <option value="ME">Mechanical Engineering</option>
+                    <option value="MnC">Mathematics and Computing</option>
+                </select>
+                <input type="submit" class="edit-save-btn"value="Save">
             </form>
         </div>
         <div class="logout-btn">

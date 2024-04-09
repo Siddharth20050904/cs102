@@ -78,7 +78,11 @@ app.get('/home',(req,res)=>{
 
 
 app.get('/edit',(req,res)=>{
-    res.render('page3');
+    if(req.isAuthenticated()){
+        res.render('edit');
+    }else{
+        res.redirect('/login');
+    }
 })
 .post('/edit',(req,res)=>{
     const event = Event({
@@ -142,8 +146,26 @@ app.get('/login', (req, res) => {
     failureRedirect:"/login"
 }));
 
-app.get('/profile',(req,res)=>{
-    console.log(req.user)
+app.get('/profile',async (req,res)=>{
+    if(req.isAuthenticated()){
+        await LogInCollection.findOne({_id:req.user._id})
+        .then((result)=>{
+            res.render('profile',{user:result});
+        })
+        .catch(err=>console.log(err));
+    }else{
+        res.redirect('/login');
+    }
+}).post('/profile',async (req,res)=>{
+    await LogInCollection.findOneAndUpdate({_id:req.user._id},
+    {
+        name:req.body.edit_name,
+        rollno:req.body.edit_roll,
+        Branch:req.body.branch,
+        email:req.body.edit_email
+    }).then((result)=>{
+        res.redirect('/profile');
+    })
 })
 
 passport.use(new LocalStrategy(async function verify(username,password,cb){
