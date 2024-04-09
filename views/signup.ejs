@@ -83,10 +83,20 @@
             <option value="MnC">Mathematics and Computing</option>
         </select>
         <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="confirm-password" placeholder="Confirm Password" required>
-        <input type="submit" value="Sign Up">
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <input type="submit" value="Sign Up" onclick="verifyPassword()">
     </form>
     <p>Already have an account? <a href="/login">Sign In</a></p>
 </div>
+<script>
+    function verifyPassword(){
+        var password = document.getElementsByName('password').values[0];
+        var confirmPassword = document.getElementsByName('confirmPassword').values[0];
+
+        if(password!=confirmPassword){
+            alert("Please enter same password in Confirm Password");
+        }
+    }
+</script>
 </body>
 </html>

@@ -93,60 +93,58 @@ app.get('/edit',(req,res)=>{
     event.save();
     res.redirect('/home');
 })
-app.get('/db',(req,res)=>{
-    Event.find()
-    .then((event)=>{
-        console.log(event);
-    })
-    .catch((err)=>{console.log(err)})
-})
 
 app.get('/signup', (req, res) => {
     res.render('signup')
 })
+.post('/signup', async (req, res) => {
+
+    if(req.body.password==req.body.confirmPassword){
+        try {
+            const checking = await LogInCollection.findOne({ email: req.body.username });
+    
+            if (checking) {
+                return res.send("User details already exist.");
+            } else {
+                bcrypt.hash(req.body.password,10,async (err,hashedPassword)=>{
+                    if(err){
+                        console.log(err);
+                    }else{
+                        const data = {
+                            name: req.body.name,
+                            password: hashedPassword,
+                            rollno: req.body.rollno,
+                            email: req.body.email,
+                            Branch : req.body.branch
+                        }
+                        const result = await LogInCollection.create(data);
+                        req.login(result,(err)=>{
+                            console.log(err);
+                            res.redirect("/home");
+                        });
+                    } 
+                });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            return res.status(500).send("Internal Server Error");
+        }
+    }else{
+        res.redirect("/signup")
+    }    
+});
+
 app.get('/login', (req, res) => {
     res.render('login')
 })
-
-
-app.post('/signup', async (req, res) => {
-
-    try {
-        const checking = await LogInCollection.findOne({ email: req.body.username });
-
-        if (checking) {
-            return res.send("User details already exist.");
-        } else {
-            bcrypt.hash(req.body.password,10,async (err,hashedPassword)=>{
-                if(err){
-                    console.log(err);
-                }else{
-                    const data = {
-                        name: req.body.name,
-                        password: hashedPassword,
-                        rollno: req.body.rollno,
-                        email: req.body.email,
-                        Branch : req.body.branch
-                    }
-                    const result = await LogInCollection.create(data);
-                    req.login(result,(err)=>{
-                        console.log(err);
-                        res.redirect("/home");
-                    });
-                } 
-            });
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        return res.status(500).send("Internal Server Error");
-    }
-});
-
-
-app.post('/login', passport.authenticate("local",{
+.post('/login', passport.authenticate("local",{
     successRedirect:"/home",
     failureRedirect:"/login"
 }));
+
+app.get('/profile',(req,res)=>{
+    console.log(req.user)
+})
 
 passport.use(new LocalStrategy(async function verify(username,password,cb){
     try {
@@ -160,7 +158,7 @@ passport.use(new LocalStrategy(async function verify(username,password,cb){
 
         bcrypt.compare(password,check.password, async(err,result)=>{
             if(err){
-                return cb(err);
+                throw err;
             }else{
                 if(result){
                     return cb(null,check)
