@@ -1,14 +1,16 @@
-body {
+.container{
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-image: url(./img/background.png);
+    height: 90vh;
 }
 
+body{
+    background-image: url(./img/background.png);
+}
 .form-container {
     background-color: #1F2421;
     color: white;

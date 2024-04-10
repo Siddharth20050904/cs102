@@ -22,7 +22,8 @@ app.use(express.static("public"));
 app.use(session({
     secret:"NOHACKERSALLOWED",
     resave:false,
-    saveUninitialized:true
+    saveUninitialized:true,
+    cookie:{maxAge:1000*60*60*24}
 }));
 
 app.use(passport.initialize());
@@ -35,9 +36,10 @@ app.get("/",(req,res)=>{
     }else{
         res.redirect("/login");
     }
-})
+});
 
-app.get('/home',(req,res)=>{
+app.route('/home')
+.get((req,res)=>{
     if(req.isAuthenticated()){
         month.getmonthFunc().then((data) => {
             Event.find({month:monthName.indexOf(Object.keys(data)[0])+1}).then((result)=>{
@@ -57,7 +59,7 @@ app.get('/home',(req,res)=>{
         res.redirect("/login");
     } 
 })
-.post('/home',(req,res)=>{
+.post((req,res)=>{
     if(req.isAuthenticated()){
         month.getmonthFunc(req.body.button).then((data) => {
             Event.find({month:monthName.indexOf(Object.keys(data)[0])+1}).then((result)=>{
@@ -76,17 +78,17 @@ app.get('/home',(req,res)=>{
     }else{
         res.redirect("/login");
     }
-})
+});
 
-
-app.get('/edit',(req,res)=>{
+app.route('/edit')
+.get((req,res)=>{
     if(req.isAuthenticated()){
         res.render('edit');
     }else{
         res.redirect('/login');
     }
 })
-.post('/edit',(req,res)=>{
+.post((req,res)=>{
     const event = Event({
         eventType: req.body.eventType,
         year: Number(req.body.eventDate.substr(0,4)),
@@ -100,10 +102,11 @@ app.get('/edit',(req,res)=>{
     res.redirect('/home');
 })
 
-app.get('/signup', (req, res) => {
+app.route('/signup')
+.get((req, res) => {
     res.render('signup')
 })
-.post('/signup', async (req, res) => {
+.post(async (req, res) => {
 
     if(req.body.password==req.body.confirmPassword){
         try {
@@ -141,15 +144,17 @@ app.get('/signup', (req, res) => {
     }    
 });
 
-app.get('/login', (req, res) => {
+app.route('/login')
+.get((req, res) => {
     res.render('login')
 })
-.post('/login', passport.authenticate("local",{
+.post(passport.authenticate("local",{
     successRedirect:"/home",
     failureRedirect:"/login"
 }));
 
-app.get('/profile',async (req,res)=>{
+app.route('/profile')
+.get(async (req,res)=>{
     if(req.isAuthenticated()){
         await LogInCollection.findOne({_id:req.user._id})
         .then((result)=>{
@@ -159,7 +164,8 @@ app.get('/profile',async (req,res)=>{
     }else{
         res.redirect('/login');
     }
-}).post('/profile',async (req,res)=>{
+})
+.post(async (req,res)=>{
     await LogInCollection.findOneAndUpdate({_id:req.user._id},
     {
         name:req.body.edit_name,
@@ -170,6 +176,13 @@ app.get('/profile',async (req,res)=>{
         res.redirect('/profile');
     })
 })
+
+app.get('/logout', function(req, res, next){
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  });
 
 passport.use(new LocalStrategy(async function verify(username,password,cb){
     try {

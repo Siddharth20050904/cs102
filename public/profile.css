@@ -5,14 +5,24 @@ body {
     background-image:url("./img/background.png");
 }
 
-.container {
+.profile-container {
+    display: flex;
     max-width: 600px;
-    margin: 20px auto;
+    margin: 100px auto;
     padding: 20px;
     background-color: black;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
+.container.active{
+    margin-top: 10px;
 }
 
 h1 {
@@ -35,7 +45,7 @@ h1 {
 .profile-info span {
     display: inline-block;
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: #49A078;
     color: #fff;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -70,7 +80,7 @@ h1 {
 }
 
 .edit-btn {
-    background-color: #007bff;
+    background-color: #49A078;
     color: #fff;
     border: none;
     border-radius: 5px;
