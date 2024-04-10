@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg" style="background-color: #49A078;">
+  <nav class="navbar navbar-expand-lg" style="background-color: black;">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,15 +17,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="/home">Calendar</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">About</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Calendar</a>
-          </li>
         </ul>
+        <div class="navbar-nav"><div class="nav-item"><a class="nav-link active" aria-current="page" href="/profile">Profile</a></div></div>
       </div>
     </div>
   </nav>
@@ -59,8 +57,20 @@
           <div><label class="month" style="color:black"><%=currentMonth%></label></div>         
           <button type="submit" name="button" class="down" value="down"></button>
         </form>
+
+        <% if (userType=="staff") { %>
+          <div class="edit-btn">
+            <a href="/edit">
+                <div><b>Edit</b></div>
+                <div class="edit"></div>
+            </a>
+          </div>
+        <% } %>
+         
+              
       </div>
     </div>
+    
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>
     const events = JSON.parse('<%- events %>');

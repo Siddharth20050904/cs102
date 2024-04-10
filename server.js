@@ -47,7 +47,8 @@ app.get('/home',(req,res)=>{
                         currentDays : data[Object.keys(data)[0]],
                         currentYear:data["year"],
                         events: JSON.stringify(result),
-                        monthNo:monthName.indexOf(Object.keys(data)[0])+1
+                        monthNo:monthName.indexOf(Object.keys(data)[0])+1,
+                        userType: req.user.userType
                     });
                 }
             });
@@ -66,7 +67,8 @@ app.get('/home',(req,res)=>{
                         currentDays : data[Object.keys(data)[0]],
                         currentYear:data["year"],
                         events: JSON.stringify(result),
-                        monthNo:monthName.indexOf(Object.keys(data)[0])+1
+                        monthNo:monthName.indexOf(Object.keys(data)[0])+1,
+                        userType: req.user.userType
                     });
                 }
             });
@@ -119,7 +121,8 @@ app.get('/signup', (req, res) => {
                             password: hashedPassword,
                             rollno: req.body.rollno,
                             email: req.body.email,
-                            Branch : req.body.branch
+                            Branch : req.body.branch,
+                            userType: "student"
                         }
                         const result = await LogInCollection.create(data);
                         req.login(result,(err)=>{

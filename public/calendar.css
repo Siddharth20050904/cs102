@@ -1,8 +1,10 @@
 .navbar-brand{
     background-image: url("https://upload.wikimedia.org/wikipedia/en/a/a7/Indian_Institute_of_Technology_Goa_Logo.svg");
+    background-color: white;
+    border-radius: 50%;
     background-size: cover;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 .profile{
@@ -81,7 +83,7 @@ body{
     height: 30px;
     background-size: cover;
     margin: 4px;
-    border: solid transparent;
+    border: solid transparent 2px;
     border-radius: 10px;
 }
 
@@ -93,7 +95,7 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     margin: 4px;
-    border: solid transparent;
+    border: solid transparent 2px;
     border-radius: 10px;
 }
 
@@ -112,15 +114,45 @@ body{
 }
 .nav-item{
     margin: 4px;
-    border: solid transparent;
+    border: solid transparent 2px;
 }
 .nav-item:hover,.up:hover,.down:hover{
     margin: 4px;
-    border: solid black;
+    border-color: white;
     border-radius: 10px;
 }
 
 a{
     text-decoration: none;
     color: black;
+}
+
+.edit-btn{
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    display:flex;
+    align-items: center;
+    background-color: #49A078;
+    border: transparent solid 2px;
+}
+
+.edit{
+    background-image: url("./img/edit.svg");
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    margin-left: 6px;
+}
+
+.edit-btn a{
+    text-decoration: none;
+}
+
+.edit-btn:hover{
+    border-color: black;
+}
+
+.nav-link {
+    color: white !important;
 }

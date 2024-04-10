@@ -33,6 +33,10 @@ const logInSchema= mongoose.Schema({
   email:{
       type:String,
       required:true
+  },
+  userType:{
+      type:String,
+      required:true
   }
 });
 
