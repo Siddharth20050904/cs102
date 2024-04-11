@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="calendar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
 </head>
 <body>
@@ -12,7 +13,9 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="https://iitgoa.ac.in/"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span>
+          <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+        </span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -41,7 +44,7 @@
             <% currentDays.forEach((week)=>{ %>
             <%   week.forEach((day)=>{ %>
             <%    if(day!=0){ %>
-                  <a href="/<%=currentYear%>-<%= monthNo %>-<%= day %>"><div class="day <%=currentYear%>-<%= monthNo %>-<%= day %> text-truncate"><h5 class="title-<%=currentYear%>-<%= monthNo %>-<%= day %>"><%=day%></h5></div></a>
+                  <div class="day <%=currentYear%>-<%= monthNo %>-<%= day %> text-truncate" onclick="showPopup('popup-<%=currentYear%>-<%= monthNo %>-<%= day %>')"><h5 class="title-<%=currentYear%>-<%= monthNo %>-<%= day %>"><%=day%></h5></div>
             <%      }else{ %>
                   <div class="day"></div>
                   <%} %>
@@ -51,30 +54,78 @@
     
       </div>
 
-      <div class="form1">
-        <form method="post">
-          <button type="submit" name="button" class="up" value="up"></button>
-          <div><label class="month" style="color:black"><%=currentMonth%></label></div>         
-          <button type="submit" name="button" class="down" value="down"></button>
-        </form>
-
-        <% if (userType=="staff") { %>
-          <div class="edit-btn">
-            <a href="/edit">
-                <div><b>Edit</b></div>
-                <div class="edit"></div>
-            </a>
-          </div>
-        <% } %>
-         
-              
+      <div class="arrow-content">
+        <div class="form1">
+          <form method="post">
+            <button type="submit" name="button" class="up" value="up"></button>
+            <div class="current-month"><label class="month" style="color:black"><%=currentMonth%></label></div>         
+            <button type="submit" name="button" class="down" value="down"></button>
+          </form>
+        </div> 
+        <div class="form2">
+          <% if (userType=="staff") { %>
+            <div class="edit-btn">
+              <a href="/edit">
+                  <div><b>Edit</b></div>
+                  <div class="edit"></div>
+              </a>
+            </div>
+          <% } %>
+        </div>
       </div>
+
+      
     </div>
+
+    <% const e = JSON.parse(events) %>
+    <% currentDays.forEach((week)=>{ %>
+      <% week.forEach((day)=>{ %>
+        <% if(day!=0){ %> 
+          <% const arr = e.filter(obj=>{%>
+            <% if(obj['date']!=day){%>
+              <% return false;%>
+            <% }else if(obj['month']==currentMonth){%>
+              <% return false;%>
+            <% }else if(obj['year']!=currentYear){%>
+              <% return false; %>
+            <% } %>
+            <% return true;%>
+          <% })%>
+          <% if (arr.length>0){ %>
+            <div id="popup-<%=currentYear%>-<%= monthNo %>-<%= day %>" class="popup">
+              <div class="popup-content">
+                <span class="close" onclick="closePopup('popup-<%=currentYear%>-<%= monthNo %>-<%= day %>')">&times;</span>
+                <h2>Event Details</h2>
+                <form method="post">
+                  <hr>
+                  <label for="date">Date: <%= day %>-<%= monthNo %>-<%=currentYear%></label>
+                  <% arr.forEach(ele=>{ %>
+                    <div class="event-type">
+                      <label>Event Type : <%= ele.eventType %></label><br>
+                    </div>
+                    <table>
+                      <tr>
+                        <th>Event : <%= ele.eventTitle %></th>
+                      </tr>
+                      <tr>
+                        <th>Description : <%= ele.eventDescription %></th>
+                      </tr>
+                    </table>
+                    <% if(userType=="staff") {%>
+                    <button type="submit" class= "submit-btn" name="delete" value="<%=ele._id%>"> Delete </button>
+                    <%}%>
+                  <% }) %>
+                </form>
+              </div>
+            </div>
+          <% } %>
+        <% } %>
+      <% }) %>
+    <% }) %>
     
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>
     const events = JSON.parse('<%- events %>');
-    console.log(events)
     events.forEach(event => {
       document.getElementsByClassName(`title-${event.year}-${event.month}-${event.date}`)[0].innerHTML = `${event.date} ${event.eventTitle}`;  
       if(event.eventType=="exam"){
@@ -83,6 +134,18 @@
         document.getElementsByClassName(`${event.year}-${event.month}-${event.date}`)[0].style.backgroundColor = "gold";
       }
     });
+    function showPopup(d) {
+      document.getElementById(d).style.display = 'block';
+    }
+    function closePopup(d) {
+      document.getElementById(d).style.display = 'none';
+  }
+  window.onclick = function(event) {
+      if (event.target == document.getElementById('popup')) {
+          closePopup();
+      }
+  }
   </script>
+
 </body>
 </html>

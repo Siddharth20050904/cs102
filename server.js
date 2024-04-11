@@ -59,22 +59,27 @@ app.route('/home')
         res.redirect("/login");
     } 
 })
-.post((req,res)=>{
+.post(async (req,res)=>{
     if(req.isAuthenticated()){
-        month.getmonthFunc(req.body.button).then((data) => {
-            Event.find({month:monthName.indexOf(Object.keys(data)[0])+1}).then((result)=>{
-                if(data){
-                    res.render("home",{
-                        currentMonth : Object.keys(data)[0],
-                        currentDays : data[Object.keys(data)[0]],
-                        currentYear:data["year"],
-                        events: JSON.stringify(result),
-                        monthNo:monthName.indexOf(Object.keys(data)[0])+1,
-                        userType: req.user.userType
-                    });
-                }
+        if(req.body.button != null){
+            month.getmonthFunc(req.body.button).then((data) => {
+                Event.find({month:monthName.indexOf(Object.keys(data)[0])+1}).then((result)=>{
+                    if(data){
+                        res.render("home",{
+                            currentMonth : Object.keys(data)[0],
+                            currentDays : data[Object.keys(data)[0]],
+                            currentYear:data["year"],
+                            events: JSON.stringify(result),
+                            monthNo:monthName.indexOf(Object.keys(data)[0])+1,
+                            userType: req.user.userType
+                        });
+                    }
+                });
             });
-        });
+        }else{
+            await Event.deleteOne({_id:req.body.delete});
+            res.redirect('/');
+        }
     }else{
         res.redirect("/login");
     }
@@ -83,7 +88,10 @@ app.route('/home')
 app.route('/edit')
 .get((req,res)=>{
     if(req.isAuthenticated()){
-        res.render('edit');
+        if(req.user.userType=="staff")
+            res.render('edit');
+        else
+            res.redirect('/home');
     }else{
         res.redirect('/login');
     }
