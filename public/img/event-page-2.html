@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="veiwport" content="width=device-width, initial-scale=1.0">
+    <title>
+      Event Page
+    </title>
+    <style>
+      /* Popup container */
+      .popup {
+          display: none;
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 9999;
+      }
+
+      /* Popup content */
+      .popup-content {
+          background-color: rgba(145, 235, 230, 0.842);
+          width: 80%;
+          max-width: 600px;
+          margin: 20px auto;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Close button */
+      .close {
+          color: #049ac8;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+          cursor: pointer;
+      }
+
+      /* Table styles */
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+      }
+
+      th,
+      td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+
+      /* Event type radio buttons */
+      .event-type {
+          margin-bottom: 20px;
+      }
+
+      /* Submit button */
+      .submit-btn {
+          background-color: #ff0000;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+
+      /* Responsiveness */
+      @media screen and (max-width: 600px) {
+          .popup-content {
+              width: 90%;
+          }
+      }
+  </style>
+  </head>
+  <body>
+    <!-- Popup container -->
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Event Details</h2>
+        <form>
+          <label for="date">Date:</label>
+          <input type="date" id="date" required><br><br>
+
+
+          <div class="event-type">
+            <label>Event Type</label><br>
+            <input type="radio" id="exam" name="event-type" value="exam" required>
+            <label for="exam">Exam</label><br>
+            <input type="radio" id="others" name="event-type" value="others">
+            <label for="others">Others</label>
+          </div>
+
+          <table>
+            <tr>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><textarea rows="4" cols="50" name=description required></textarea></td>
+
+            </tr>
+          </table>
+          <input type="submit" class="submit-btn" value="Submit">
+
+
+        </form>
+      </div>
+    </div>
+    <script>
+      // Show popup
+      function showPopup() {
+          document.getElementById('popup').style.display = 'block';
+      }
+
+      // Close popup
+      function closePopup() {
+          document.getElementById('popup').style.display = 'none';
+      }
+
+      // Close popup on outside click
+      window.onclick = function(event) {
+          if (event.target == document.getElementById('popup')) {
+              closePopup();
+          }
+      }
+  </script>
+    <button onclick="showPopup()">Event Page</button>
+    
+  </body>
+</html>
