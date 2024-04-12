@@ -1,22 +1,20 @@
 const hbs = require('nodemailer-express-handlebars');
 const nodemailer = require('nodemailer');
 const path = require('path');
-const { title } = require('process');
+const dotenv = require("dotenv");
+dotenv.config();
 
 
 exports.sendEmails = async function(students,e) {
-    // initialize nodemailer
     var transporter = nodemailer.createTransport(
         {
             service: 'gmail',
             auth:{
                 user: 'replyn418@gmail.com',
-                pass: 'mmzh hfjn orxj voeq'
+                pass: process.env.MAIL_PASS
             }
         }
     );
-
-    // point to the template folder
     const handlebarOptions = {
         viewEngine: {
             partialsDir: path.resolve('./views/'),
@@ -25,14 +23,13 @@ exports.sendEmails = async function(students,e) {
         viewPath: path.resolve('./views/'),
     };
 
-    // use a template file with nodemailer
     transporter.use('compile', hbs(handlebarOptions));
 
     for (const user of students) {
         if (user.email) {
           const mailOptions = {
-            from: '"IIT Goa Calendar" <my@company.com>', // sender address
-            template: "mail", // the name of the template file, i.e., email.handlebars
+            from: '"IIT Goa Calendar"',
+            template: "mail",
             to: user.email,
             subject: `Updated Event :${e.eventTitle}`,
             context: {

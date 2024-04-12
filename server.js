@@ -32,7 +32,6 @@ app.use(passport.session());
 
 app.get("/",(req,res)=>{
     if(req.isAuthenticated()){
-        console.log(req.user)
         res.redirect("/home");
     }else{
         res.redirect("/login");
