@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const session = require("express-session");
 var passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const mails = require('./myModules/sendMails');
 
 const app = express();
 
@@ -96,7 +97,7 @@ app.route('/edit')
         res.redirect('/login');
     }
 })
-.post((req,res)=>{
+.post(async (req,res)=>{
     const event = Event({
         eventType: req.body.eventType,
         year: Number(req.body.eventDate.substr(0,4)),
@@ -107,6 +108,10 @@ app.route('/edit')
         faculty_name: req.user.name,
         faculty_email: req.user.email
     })
+
+    const studentsArray = await LogInCollection.find({userType:"student"});
+    
+    mails.sendEmails(studentsArray,event);
 
     event.save();
     res.redirect('/home');
