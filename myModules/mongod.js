@@ -10,7 +10,9 @@ const eventSchema = mongoose.Schema({
   month:Number,
   date:Number,
   eventTitle: String,
-  eventDescription: String
+  eventDescription: String,
+  faculty_name:String,
+  faculty_email:String
 });
 
 const logInSchema= mongoose.Schema({

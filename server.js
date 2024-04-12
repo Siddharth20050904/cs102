@@ -50,7 +50,7 @@ app.route('/home')
                         currentYear:data["year"],
                         events: JSON.stringify(result),
                         monthNo:monthName.indexOf(Object.keys(data)[0])+1,
-                        userType: req.user.userType
+                        user: req.user
                     });
                 }
             });
@@ -103,7 +103,9 @@ app.route('/edit')
         month: Number(req.body.eventDate.substr(5,2)),
         date: Number(req.body.eventDate.substr(8,2)),
         eventTitle: req.body.eventTitle,
-        eventDescription: req.body.eventDescription
+        eventDescription: req.body.eventDescription,
+        faculty_name: req.user.name,
+        faculty_email: req.user.email
     })
 
     event.save();

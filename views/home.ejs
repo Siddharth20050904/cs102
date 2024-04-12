@@ -63,7 +63,7 @@
           </form>
         </div> 
         <div class="form2">
-          <% if (userType=="staff") { %>
+          <% if (user.userType=="staff") { %>
             <div class="edit-btn">
               <a href="/edit">
                   <div><b>Edit</b></div>
@@ -97,9 +97,9 @@
                 <span class="close" onclick="closePopup('popup-<%=currentYear%>-<%= monthNo %>-<%= day %>')">&times;</span>
                 <h2>Event Details</h2>
                 <form method="post">
-                  <hr>
                   <label for="date">Date: <%= day %>-<%= monthNo %>-<%=currentYear%></label>
                   <% arr.forEach(ele=>{ %>
+                    <hr>
                     <div class="event-type">
                       <label>Event Type : <%= ele.eventType %></label><br>
                     </div>
@@ -110,8 +110,11 @@
                       <tr>
                         <th>Description : <%= ele.eventDescription %></th>
                       </tr>
+                      <tr>
+                        <th>By Faculty : <%= ele.faculty_name %></th>
+                      </tr>
                     </table>
-                    <% if(userType=="staff") {%>
+                    <% if(user.userType=="staff" && ele.faculty_email==user.email) {%>
                     <button type="submit" class= "submit-btn" name="delete" value="<%=ele._id%>"> Delete </button>
                     <%}%>
                   <% }) %>
