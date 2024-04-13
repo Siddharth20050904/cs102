@@ -71,7 +71,7 @@ app.route('/home')
                             currentYear:data["year"],
                             events: JSON.stringify(result),
                             monthNo:monthName.indexOf(Object.keys(data)[0])+1,
-                            userType: req.user.userType
+                            user: req.user
                         });
                     }
                 });
