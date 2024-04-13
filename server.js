@@ -85,6 +85,15 @@ app.route('/home')
     }
 });
 
+app.route('/about')
+.get((req,res)=>{
+    if(req.isAuthenticated()){
+        res.render('about');
+    }else{
+        res.redirect('/login');
+    }
+})
+
 app.route('/edit')
 .get((req,res)=>{
     if(req.isAuthenticated()){
@@ -232,4 +241,4 @@ passport.deserializeUser((user,cb)=>{
     cb(null,user);
 });
 
-app.listen(3000);
+app.listen(80);
