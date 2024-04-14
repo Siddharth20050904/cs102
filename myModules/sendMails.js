@@ -31,15 +31,15 @@ exports.sendEmails = async function(students,e) {
             from: '"IIT Goa Calendar"',
             template: "mail",
             to: user.email,
-            subject: `Updated Event :${e.eventTitle}`,
+            subject: `Updated Event :${e.eventTitle.replace(/#/g,"'").replace(/~/g,'"')}`,
             context: {
               name:user.name,
               faculty: e.faculty_name,
-              title:e.eventTitle,
+              title:e.eventTitle.replace(/#/g,"'").replace(/~/g,'"'),
               date:e.date,
               month:e.month,
               year:e.year,
-              description:e.eventDescription
+              description:e.eventDescription.replace(/#/g,"'").replace(/~/g,'"')
             },
           };
           try {

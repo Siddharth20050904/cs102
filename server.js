@@ -111,8 +111,8 @@ app.route('/edit')
         year: Number(req.body.eventDate.substr(0,4)),
         month: Number(req.body.eventDate.substr(5,2)),
         date: Number(req.body.eventDate.substr(8,2)),
-        eventTitle: req.body.eventTitle,
-        eventDescription: req.body.eventDescription,
+        eventTitle: req.body.eventTitle.replace(/'/g,"#").replace(/"/g,"~"),
+        eventDescription: req.body.eventDescription.replace(/'/g,"#").replace(/"/g,"~"),
         faculty_name: req.user.name,
         faculty_email: req.user.email
     })

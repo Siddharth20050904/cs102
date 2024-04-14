@@ -105,10 +105,10 @@
                     </div>
                     <table>
                       <tr>
-                        <th>Event : <%= ele.eventTitle %></th>
+                        <th>Event : <%= ele.eventTitle.replace(/#/g,"'").replace(/~/g,'"') %></th>
                       </tr>
                       <tr>
-                        <th>Description : <%= ele.eventDescription %></th>
+                        <th>Description : <%= ele.eventDescription.replace(/#/g,"'").replace(/~/g,'"') %></th>
                       </tr>
                       <tr>
                         <th>By Faculty : <%= ele.faculty_name %></th>
@@ -130,7 +130,7 @@
   <script>
     const events = JSON.parse('<%- events %>');
     events.forEach(event => {
-      document.getElementsByClassName(`title-${event.year}-${event.month}-${event.date}`)[0].innerHTML = `${event.date} ${event.eventTitle}`;  
+      document.getElementsByClassName(`title-${event.year}-${event.month}-${event.date}`)[0].innerHTML = `${event.date} ${event.eventTitle.replace(/#/g,"'").replace(/~/g,'"')}`;  
       if(event.eventType=="exam"){
         document.getElementsByClassName(`${event.year}-${event.month}-${event.date}`)[0].style.backgroundColor = "red";
       }else{
