@@ -17,6 +17,36 @@
     <!-- Title -->
     <title>Document</title>
 </head>
+<style>
+  footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    #clock {
+      font-size: 1.5em;
+      margin-left: auto;
+    }
+
+    #image {
+      width: 50px;
+      height: 50px;
+      margin-left: 10pt;
+    }
+
+    #text {
+      margin-left: 10px;
+    }
+</style>
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg" style="background-color: black;">
@@ -180,6 +210,29 @@
       document.getElementById(d).style.display = 'none';
   }
   </script>
+  <footer style="background-color: darkgreen  ;"">
+    <img id="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpOr24GGFIDW0neymjTHQN6SlA9YgzbkSWEes40ztmRA&s" alt="Image">
+      <div id="text"> <b>Spring Semester</b>
+          <br>IIT Goa Academic calender 2023-2024
+      </div>
+      <div id="clock"></div>
+    </footer>
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const clockDiv = document.getElementById('clock');
+        clockDiv.textContent = `${hours}:${minutes}:${seconds}`;
+      }
+      
+      // Update the clock every second
+      setInterval(updateClock, 1000);
+      
+      // Initial clock update
+      updateClock();
+    </script>
 
 </body>
 </html>
