@@ -15,7 +15,7 @@ const eventSchema = mongoose.Schema({
   faculty_email:String
 });
 
-const logInSchema= mongoose.Schema({
+const logInSchema = mongoose.Schema({
   name:{
       type:String,
       required:true

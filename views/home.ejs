@@ -1,82 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="calendar.css">
+    
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Title -->
     <title>Document</title>
 </head>
 <body>
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg" style="background-color: black;">
     <div class="container-fluid">
       <a class="navbar-brand" href="https://iitgoa.ac.in/"></a>
+      <!-- Navbar toggler -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span>
           <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
         </span>
       </button>
+      <!-- Navbar links -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <!-- Calendar link -->
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/home">Calendar</a>
           </li>
+          <!-- About link -->
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/about">About</a>
           </li>
         </ul>
-        <div class="navbar-nav"><div class="nav-item"><a class="nav-link active" aria-current="page" href="/profile">Profile</a></div></div>
+        <!-- Profile link -->
+        <div class="navbar-nav">
+          <div class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/profile">Profile</a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
-    <div class="content">
-      <div class="calendar">
-        <div class="month"><h3><%= currentMonth %> <%= currentYear %></h3></div>
-        <div class="days">
-            <div class="day"><h4>Sun</h4></div>
-            <div class="day"><h4>Mon</h4></div>
-            <div class="day"><h4>Tue</h4></div>
-            <div class="day"><h4>Wed</h4></div>
-            <div class="day"><h4>Thu</h4></div>
-            <div class="day"><h4>Fri</h4></div>
-            <div class="day"><h4>Sat</h4></div>
-            <% currentDays.forEach((week)=>{ %>
-            <%   week.forEach((day)=>{ %>
-            <%    if(day!=0){ %>
-                  <div class="day <%=currentYear%>-<%= monthNo %>-<%= day %> text-truncate" onclick="showPopup('popup-<%=currentYear%>-<%= monthNo %>-<%= day %>')"><h5 class="title-<%=currentYear%>-<%= monthNo %>-<%= day %>"><%=day%></h5></div>
-            <%      }else{ %>
-                  <div class="day"></div>
-                  <%} %>
-                  <%}) %>
-                  <%}) %>
-        </div>
-    
-      </div>
-
-      <div class="arrow-content">
-        <div class="form1">
-          <form method="post">
-            <button type="submit" name="button" class="up" value="up"></button>
-            <div class="current-month"><label class="month" style="color:black"><%=currentMonth%></label></div>         
-            <button type="submit" name="button" class="down" value="down"></button>
-          </form>
-        </div> 
-        <div class="form2">
-          <% if (user.userType=="staff") { %>
-            <div class="edit-btn">
-              <a href="/edit">
-                  <div><b>Edit</b></div>
-                  <div class="edit"></div>
-              </a>
-            </div>
-          <% } %>
-        </div>
-      </div>
-
+  
+  <!-- Content -->
+  <div class="content">
+    <div class="calendar">
+      <!-- Month and year display -->
+      <div class="month"><h3><%= currentMonth %> <%= currentYear %></h3></div>
       
+      <!-- Days of the week -->
+      <div class="days">
+          <div class="day"><h4>Sun</h4></div>
+          <div class="day"><h4>Mon</h4></div>
+          <div class="day"><h4>Tue</h4></div>
+          <div class="day"><h4>Wed</h4></div>
+          <div class="day"><h4>Thu</h4></div>
+          <div class="day"><h4>Fri</h4></div>
+          <div class="day"><h4>Sat</h4></div>
+          
+          <!-- Rendering days of the month -->
+          <% currentDays.forEach((week)=>{ %>
+          <%   week.forEach((day)=>{ %>
+          <%    if(day!=0){ %>
+                <div class="day <%=currentYear%>-<%= monthNo %>-<%= day %> text-truncate" onclick="showPopup('popup-<%=currentYear%>-<%= monthNo %>-<%= day %>')"><h5 class="title-<%=currentYear%>-<%= monthNo %>-<%= day %>"><%=day%></h5></div>
+          <%      }else{ %>
+                <div class="day"></div>
+                <%} %>
+                <%}) %>
+                <%}) %>
+      </div>
     </div>
 
+    <!-- Arrow buttons -->
+    <div class="arrow-content">
+      <div class="form1">
+        <form method="post">
+          <button type="submit" name="button" class="up" value="up"></button>
+          <div class="current-month"><label class="month" style="color:black"><%=currentMonth%></label></div>         
+          <button type="submit" name="button" class="down" value="down"></button>
+        </form>
+      </div> 
+      <!-- Edit button (visible only for staff users) -->
+      <div class="form2">
+        <% if (user.userType=="staff") { %>
+          <div class="edit-btn">
+            <a href="/edit">
+                <div><b>Edit</b></div>
+                <div class="edit"></div>
+            </a>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Popup for event details -->
     <% const e = JSON.parse(events) %>
     <% currentDays.forEach((week)=>{ %>
       <% week.forEach((day)=>{ %>
@@ -96,6 +121,7 @@
               <div class="popup-content">
                 <span class="close" onclick="closePopup('popup-<%=currentYear%>-<%= monthNo %>-<%= day %>')">&times;</span>
                 <h2>Event Details</h2>
+                <!-- Displaying event details -->
                 <form method="post">
                   <label for="date">Date: <%= day %>-<%= monthNo %>-<%=currentYear%></label>
                   <% arr.forEach(ele=>{ %>
@@ -114,6 +140,7 @@
                         <th>By Faculty : <%= ele.faculty_name %></th>
                       </tr>
                     </table>
+                    <!-- Delete button (visible only for staff users and event creators) -->
                     <% if(user.userType=="staff" && ele.faculty_email==user.email) {%>
                     <button type="submit" class= "submit-btn" name="delete" value="<%=ele._id%>"> Delete </button>
                     <%}%>
@@ -126,27 +153,31 @@
       <% }) %>
     <% }) %>
     
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  
+  <!-- JavaScript -->
   <script>
+    // Parsing events data
     const events = JSON.parse('<%- events %>');
+    // Looping through events
     events.forEach(event => {
+      // Updating day titles with event details
       document.getElementsByClassName(`title-${event.year}-${event.month}-${event.date}`)[0].innerHTML = `${event.date} ${event.eventTitle.replace(/#/g,"'").replace(/~/g,'"')}`;  
+      // Setting background color based on event type
       if(event.eventType=="exam"){
         document.getElementsByClassName(`${event.year}-${event.month}-${event.date}`)[0].style.backgroundColor = "red";
       }else{
         document.getElementsByClassName(`${event.year}-${event.month}-${event.date}`)[0].style.backgroundColor = "gold";
       }
     });
+    // Function to show popup
     function showPopup(d) {
       document.getElementById(d).style.display = 'block';
     }
+    // Function to close popup
     function closePopup(d) {
       document.getElementById(d).style.display = 'none';
-  }
-  window.onclick = function(event) {
-      if (event.target == document.getElementById('popup')) {
-          closePopup();
-      }
   }
   </script>
 
