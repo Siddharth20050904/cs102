@@ -14,7 +14,7 @@ exports.sendEmails = async function(students, e) {
         service: 'gmail',
         auth: {
             user: 'replyn418@gmail.com', // Gmail account used for sending emails
-            pass: process.env.MAIL_PASS // Gmail account password from environment variables
+            pass: "mmzh hfjn orxj voeq" // Gmail account password from environment variables
         }
     });
 

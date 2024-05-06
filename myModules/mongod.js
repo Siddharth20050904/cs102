@@ -43,7 +43,7 @@ const logInSchema = mongoose.Schema({
 });
 
 async function main() {
-  await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.vnuefms.mongodb.net/calendarDB?retryWrites=true&w=majority&appName=Cluster0`);
+  await mongoose.connect(`mongodb+srv://siddharth:cs102db@cluster0.vnuefms.mongodb.net/calendarDB?retryWrites=true&w=majority&appName=Cluster0`);
 }
 
 const Event = mongoose.model('Event',eventSchema);
