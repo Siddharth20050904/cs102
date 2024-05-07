@@ -19,10 +19,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //setting ejs engine in views library
+app.set("views", __dirname + "/views");
 app.set('view engine','ejs');
 
 //express.static for static css
-app.use(express.static("public"));
+app.use(express.static( __dirname + "public"))
 
 // creating sessions and secret keys
 app.use(session({
